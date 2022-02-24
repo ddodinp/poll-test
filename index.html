@@ -158,7 +158,7 @@ caption{font-size:0; line-height:0; height:0}
 		[...document.querySelectorAll('.txt_total span')].forEach((element, i) => {
 			element.innerHTML = avgs[i];
 		});
-
+		
 
 		// 한개의 평균 값을 구할 때
 		// const b = [2, 8, 15, 22, 3];
@@ -169,6 +169,10 @@ caption{font-size:0; line-height:0; height:0}
 		// 3개의 span에 모두 같은 값 들어감
 		// [...document.querySelectorAll('.txt_total span')].map(element => element.innerHTML = a);
 		// console.log(document.querySelectorAll('.txt_total span'));
+
+
+		// document.getElementsByClassName('txt_num').style.textIndent = '0';
+		// console.log(document.getElementsByClassName('txt_num').style.textIndent = '0');
 	};
 </script>
 </body>
