@@ -137,44 +137,5 @@ caption{font-size:0; line-height:0; height:0}
 	</div>
 	<!-- //문항 -->
 </div>
-<script>
-	window.onload = function () {
-		// // 세개의 평균값을 구할 수 있는 방법
-
-		// 세개의 점수배열을 한 변수에 배열 형식으로 담아주기(이중배열)
-		const points = [
-			[2, 8, 15, 22, 3],
-			[6, 7, 26, 18, 9],
-			[3, 6, 15, 36, 18, 9, 12]
-		];
-		
-		// MAP 메서드를 이용해서 한번씩 돌아가며 평군 구하기 
-		const avgs = points.map(point => {
-			// 평균구하는 식
-			// 소수점 두자리까지만 보여주기 위해 toFixed(1) 붙였으나 숫자로 인식하지 못해 Number로 감싸줌
-			return Number(point.reduce((a, r) => a + r, 0) / point.length).toFixed(1);
-		});
-		
-		// 구해진 평균을 HTML에 가져오기
-		[...document.querySelectorAll('.txt_total span')].forEach((element, i) => {
-			element.innerHTML = avgs[i];
-		});
-		
-
-		// 한개의 평균 값을 구할 때
-		// const b = [2, 8, 15, 22, 3];
-		// const a = Number(b.reduce((a, r) => a + r, 0) / b.length).toFixed(2);
-		// document.querySelector('.txt_total span').innerHTML = a;
-		// document.querySelectorAll('.txt_total span')[0].innerHTML = a;
-
-		// 3개의 span에 모두 같은 값 들어감
-		// [...document.querySelectorAll('.txt_total span')].map(element => element.innerHTML = a);
-		// console.log(document.querySelectorAll('.txt_total span'));
-
-
-		// document.getElementsByClassName('txt_num').style.textIndent = '0';
-		// console.log(document.getElementsByClassName('txt_num').style.textIndent = '0');
-	};
-</script>
 </body>
 </html>
