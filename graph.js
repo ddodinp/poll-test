@@ -1,6 +1,4 @@
 window.onload = function () {
-    // // 세개의 평균값을 구할 수 있는 방법
-
     // 세개의 점수배열을 한 변수에 배열 형식으로 담아주기(이중배열)
     const points = [
         [2, 8, 15, 22, 3], // min 0, max 25
@@ -8,16 +6,12 @@ window.onload = function () {
         [3, 6, 15, 36, 18, 9, 12] // min 0, max 40
     ];
 
-    // MAP 메서드를 이용해서 한번씩 돌아가며 평군 구하기
-    const avgs = points.map(point => {
-        // 평균구하는 식
-        // 소수점 두자리까지만 보여주기 위해 toFixed(1) 붙였으나 숫자로 인식하지 못해 Number로 감싸줌
-        return Number(point.reduce((a, r) => a + r, 0) / point.length).toFixed(1);
-    });
-
+    //항목당 점수 [1, 2, 3, 4, 5]
     const score = points.map(point => {
         const totalPeople = Number(point.reduce((a, r) => a + r, 0)); // 여기서의 reduce가 반환하는 값은 point로 계산을 한 '숫자값'이다.
         const totalScore = point.reduce((a, r, i) => {
+            a.push(r * (i + 1)); //곱해야할 항목점수를 (i+1) 로 설정
+            return a;
             // a = [];
             // r = 2;
             // a.push(r * (0 + 1)); = 2 > a.push(2);
@@ -30,18 +24,17 @@ window.onload = function () {
             // a = [2, 16];
             // 두번쨰 턴 끝
 
-            // a = [2, 15, 4, 4, 4];
+            // a = [2, 16, 30, 88, 6];
 
-            // totalScore = [[2, 15, 4, 4, 4], [2, 15, 4, 4, 4], [2, 15, 4, 4, 4]];
-
-            a.push(r * (i + 1));
-            return a;
-        }, []).reduce((a, r) => a + r, 0);
-
-        return (totalScore / totalPeople).toFixed(2);
+            // a= [[2, 16, 30, 88, 6], [6, 14, 78, 72, 45], [3, 12, 45, 144, 90, 54, 84]];
+            // totalScore = [166, 215, 432] 
+        }, []).reduce((a, r) => a + r, 0);   
+        return (totalScore / totalPeople).toFixed(2); // 평점구하는 식 : 각 항목당점수 * 사람수 모두 더한 값 / 총 인원수
     });
 
-    const max = points.map(point => Math.max(...point)).map(m => 5 * Math.ceil(m / 5)); // [25 / 5, 30 / 5, 40 / 5// ]
+    // 5단위로 끊기는 기준점: 5의 배수에 가까운 최대값 구하기
+    const max = points.map(point => Math.max(...point)).map(m => 5 * Math.ceil(m / 5));
+
     const columns = max.reduce((a, r) => {
         const range = [];
         for (i = 0; i <= r; i += 5) {
@@ -50,9 +43,10 @@ window.onload = function () {
         a.push(range);
         return a;
     }, []);
+    console.log('columns', columns);
 
 
-    // 구해진 평균을 HTML에 가져오기
+    // 구해진 평점을 HTML에 가져오기
     [...document.querySelectorAll('.txt_total span')].forEach((element, i) => {
         element.innerHTML = score[i];
     });
@@ -61,13 +55,13 @@ window.onload = function () {
     [...document.querySelectorAll('.box_poll_graph')].forEach(element => {
         const newDiv = document.createElement('div');
         newDiv.classList.add('range');
-        element.after(newDiv);
+        element.append(newDiv); //요소 내부의 끝 부분에 삽입
     });
 
     // 각 range 그래프 그리기
     [...document.querySelectorAll('.range')].forEach((element, i) => {
-        console.log('range', element);
-        console.log('columns', columns);
+        // console.log('range', element);
+        // console.log('columns', columns);
         columns.forEach((column, idx) => {
             console.log('column', column);
             if (i === idx) {
@@ -76,14 +70,8 @@ window.onload = function () {
                     const ranges = document.createTextNode(c);
                     addSpan.appendChild(ranges);
                     element.appendChild(addSpan);
-                    addSpan.style.marginLeft = '30px';
-                    addSpan.style.color = '#ccc';
-                    addSpan.style.fontSize = '13px';
-                    // margin을 줘야하는 곳
                 })
             }
         });	
-        element.style.marginTop = '5px';
-        element.style.marginLeft = '60px';
     });
 };
