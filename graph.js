@@ -24,11 +24,11 @@ window.onload = function () {
             // a = [2, 16];
             // 두번쨰 턴 끝
 
-            // a = [2, 16, 30, 88, 6];
+            // a = [2, 16, 45, 88, 30];
 
-            // a= [[2, 16, 30, 88, 6], [6, 14, 78, 72, 45], [3, 12, 45, 144, 90, 54, 84]];
+            // a= [[2, 16, 45, 88, 30], [6, 14, 78, 72, 45], [3, 12, 45, 144, 90, 54, 84]];
             // totalScore = [166, 215, 432] 
-        }, []).reduce((a, r) => a + r, 0);   
+        }, []).reduce((a, r) => a + r, 0);  
         return (totalScore / totalPeople).toFixed(2); // 평점구하는 식 : 각 항목당점수 * 사람수 모두 더한 값 / 총 인원수
     });
 
@@ -40,10 +40,12 @@ window.onload = function () {
         for (i = 0; i <= r; i += 5) {
             range.push(i);
         }
+        console.log('range', range);
         a.push(range);
         return a;
     }, []);
     console.log('columns', columns);
+    console.log('max', max);
 
 
     // 구해진 평점을 HTML에 가져오기
